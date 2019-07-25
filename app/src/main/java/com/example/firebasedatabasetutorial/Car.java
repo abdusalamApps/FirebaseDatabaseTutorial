@@ -47,7 +47,6 @@ public class Car {
     }
 
 
-
     public long getViews() {
         return views;
     }

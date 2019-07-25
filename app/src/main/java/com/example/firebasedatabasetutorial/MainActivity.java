@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerAdapter = new FirebaseRecyclerAdapter<Car, CarViewHolder>(options) {
 
             @Override
-            protected void onBindViewHolder(@NonNull final CarViewHolder holder, int i, @NonNull Car car) {
+            protected void onBindViewHolder(@NonNull final CarViewHolder holder, int i, @NonNull final Car car) {
 
                 holder.setModel(car.getModel());
                 holder.setColor(car.getColor());
@@ -84,7 +84,13 @@ public class MainActivity extends AppCompatActivity {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(holder.itemView.getContext(), CarDetailsActivity.class));
+                        Intent intent = new Intent(holder.itemView.getContext(), CarDetailsActivity.class);
+                        intent.putExtra("model", car.getModel());
+                        intent.putExtra("description", car.getDescription());
+                        intent.putExtra("color", car.getColor());
+                        intent.putExtra("views", String.valueOf(car.getViews()));
+                        intent.putExtra("speed", String.valueOf(car.getSpeed()));
+                        startActivity(intent);
                     }
                 });
             }
