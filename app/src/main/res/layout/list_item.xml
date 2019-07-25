@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="68dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    android:orientation="vertical"
+    app:cardElevation="10dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="?android:attr/selectableItemBackground"
+        >
+
+        <TextView
+            android:id="@+id/listItemSpeed_tv"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            tools:text="260" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                android:id="@+id/listItemModel_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                tools:text="Audi A8 2015"
+                android:letterSpacing="0.0892857143"
+                />
+
+
+            <TextView
+                android:id="@+id/listItemColor_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Black"
+                android:letterSpacing="0.0892857143"
+
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>
