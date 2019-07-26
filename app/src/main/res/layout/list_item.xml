@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="68dp"
+    android:layout_height="82dp"
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="8dp"
@@ -22,14 +22,14 @@
 
         <TextView
             android:id="@+id/listItemSpeed_tv"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:gravity="center"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
-            tools:text="260" />
+            tools:text="260 km" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,19 +48,39 @@
                 android:textSize="16sp"
                 tools:text="Audi A8 2015"
                 android:letterSpacing="0.0892857143"
+                android:layout_marginBottom="8dp"
                 />
 
 
-            <TextView
-                android:id="@+id/listItemColor_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Black"
-                android:letterSpacing="0.0892857143"
 
-                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/listItemColor_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Black"
+                    android:letterSpacing="0.0892857143"
+
+                    />
+                <TextView
+                    android:id="@+id/listItemViews_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="33 Views"
+                    android:letterSpacing="0.0892857143"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/colorPrimary"
+                    android:textColor="#fff"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    />
+
+            </RelativeLayout>
 
         </LinearLayout>
+
     </LinearLayout>
 
 

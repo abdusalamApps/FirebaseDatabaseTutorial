@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CarViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView mModelTV, mColorTV, mTopSpeedTV;
+    private TextView mModelTV, mColorTV, mTopSpeedTV, mViewsTV;
 
     public CarViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -16,6 +16,7 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
         mModelTV = itemView.findViewById(R.id.listItemModel_tv);
         mColorTV = itemView.findViewById(R.id.listItemColor_tv);
         mTopSpeedTV = itemView.findViewById(R.id.listItemSpeed_tv);
+        mViewsTV = itemView.findViewById(R.id.listItemViews_tv);
 
     }
 
@@ -27,7 +28,11 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
         mColorTV.setText(color);
     }
 
-    public void setSpeed(long speed) {
-        mTopSpeedTV.setText(String.valueOf(speed));
+    public void setSpeed(int speed) {
+        mTopSpeedTV.setText(String.format("%s kmh",String.valueOf(speed)));
+    }
+
+    public void setViews(long views) {
+        mViewsTV.setText(String.format("%s Views", String.valueOf(views)));
     }
 }

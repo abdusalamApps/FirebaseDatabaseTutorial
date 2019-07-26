@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -24,6 +25,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void findViews() {
         mRecyclerView = findViewById(R.id.cars_rv);
-        mFab = findViewById(R.id.fab);
+        mFab = findViewById(R.id.floatingButton);
     }
 
     @Override
@@ -55,6 +58,15 @@ public class MainActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mDatabase.getReference("cars");
         mCarList = new ArrayList<>();
+
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivityForResult(new Intent(view.getContext(), EditorActivity.class), 1);
+
+            }
+        });
 
         mLayoutManager = new LinearLayoutManager(MainActivity.this);
 
@@ -80,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 holder.setModel(car.getModel());
                 holder.setColor(car.getColor());
                 holder.setSpeed(car.getSpeed());
+                holder.setViews(car.getViews());
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -90,6 +103,27 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("color", car.getColor());
                         intent.putExtra("views", String.valueOf(car.getViews()));
                         intent.putExtra("speed", String.valueOf(car.getSpeed()));
+
+                        mDatabaseReference.child(mCarList.get(holder.getAdapterPosition()).getKey()).runTransaction(new Transaction.Handler() {
+                            @NonNull
+                            @Override
+                            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                                Car car = mutableData.getValue(Car.class);
+                                if (car == null) {
+                                    return Transaction.success(mutableData);
+                                }
+                                car.setViews(car.getViews() + 1);
+                                Log.d(TAG, "doTransaction: views count: " + car.getViews());
+                                mutableData.setValue(car);
+                                return Transaction.success(mutableData);
+                            }
+
+                            @Override
+                            public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+                                Log.d(TAG, "onComplete: " + databaseError);
+                            }
+                        });
+
                         startActivity(intent);
                     }
                 });
@@ -105,14 +139,6 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView.setAdapter(mRecyclerAdapter);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
-
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, EditorActivity.class));
-            }
-        });
 
         attachDatabaseReadListener();
     }
